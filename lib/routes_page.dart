@@ -112,7 +112,7 @@ class _RoutesPageState extends State<RoutesPage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MyApp()),
+                    MaterialPageRoute(builder: (context) => SettingsPage()),
                   );
                 },
               ),

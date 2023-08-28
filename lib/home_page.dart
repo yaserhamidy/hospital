@@ -5,11 +5,13 @@ import 'finish_page.dart';
 import 'addpage.dart';
 import 'finish_page.dart';
 import 'modals/hospital.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
 
 class _HomePageState extends State<HomePage> {
 
@@ -49,10 +51,49 @@ class _HomePageState extends State<HomePage> {
         },
 
       ),
-      appBar: AppBar(title: Text("add page",style: TextStyle(color: Colors.black),),backgroundColor: Colors.white,),
+
       body: Container(
         child: Column(
           children: [
+            Align(
+              alignment: Alignment.topLeft,
+
+              child: MaterialButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Confirmation'),
+                        content: Text('Are you sure you want to delete all?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                hospitals.clear();
+                                selectedHospitals.clear();
+                              });
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Yes'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('No'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: Text(
+                  'Delete All',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: hospitals.length,
@@ -70,10 +111,11 @@ class _HomePageState extends State<HomePage> {
 
                       ],
                     ),
-                    // Text(
-                    //   'Name = ${hospitals[index].name} _ Price = ${hospitals[index].Price} AFG _ Doctor = ${hospitals[index].doctorName}',
-                    // ),
-                    subtitle: Row(
+
+
+                    subtitle:
+
+                    Row(
                       children: [
                         Text(
                           DateFormat('yyyy-MM-dd – kk:mm').format(hospitals[index].time),
@@ -114,11 +156,37 @@ class _HomePageState extends State<HomePage> {
                           },
                         ),
                         IconButton(
-                          icon: Icon(Icons.delete,color: Colors.lightBlueAccent),
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.lightBlueAccent,
+                          ),
                           onPressed: () {
-                            setState(() {
-                              hospitals.removeAt(index);
-                            });
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Confirm Delete'),
+                                  content: Text('Are you sure you want to delete this item?'),
+                                  actions: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          hospitals.removeAt(index);
+                                        });
+                                        Navigator.pop(context); // Close the dialog
+                                      },
+                                      child: Text('Delete'),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context); // Close the dialog
+                                      },
+                                      child: Text('Cancel'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           },
                         ),
                         Checkbox(
@@ -149,8 +217,7 @@ class _HomePageState extends State<HomePage> {
                         ),
 
                       ],
-                    ),
-                    // Rest of your ListTile properties...
+                    )
                   );
                 },
               ),

@@ -34,6 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:
+
       Container(
 
           color: Color(0xff0074B7), child: Column(
@@ -42,7 +43,8 @@ class _SplashScreenState extends State<SplashScreen> {
           SizedBox(height: 200,),
           Center(child: Image.asset("Asset/clinic.jpg",)),
           SizedBox(height: 10,),
-          Text("Welcome to the Hamidy clinic",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white),),
+
+          Center(child: Text("Welcome to the Hamidy clinic",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.white),)),
           SizedBox(height: 10,),
           FutureBuilder(
             future: _getData(),

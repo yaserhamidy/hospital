@@ -10,10 +10,7 @@ class FinishPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Finish Page',style: TextStyle(color: Colors.black),),
-        backgroundColor: Colors.white,
-      ),
+
       body: ListView.builder(
         itemCount: selectedHospitals.length,
         itemBuilder: (context, index) {
